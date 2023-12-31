@@ -12,11 +12,11 @@ import (
 )
 
 type ServerConfig struct {
-	Addr string `env:"ADDRESS" envDefault:":3000"`
+	Port int `env:"PORT" envDefault:"8080"`
 }
 
 type Server struct {
-	Addr   string
+	Port   int
 	Logger *httplog.Logger
 }
 
@@ -28,7 +28,7 @@ func NewServer(logger *httplog.Logger, config *ServerConfig) *Server {
 		}
 	}
 
-	return &Server{Addr: config.Addr, Logger: logger}
+	return &Server{Port: config.Port, Logger: logger}
 }
 
 //go:embed favicon.ico
@@ -41,8 +41,8 @@ func (svr Server) Start() {
 	mux.Get("/", RootHandler)
 	mux.Handle("/favicon.ico", http.FileServer(http.FS(favicon)))
 
-	svr.Logger.Info("starting server", slog.String("addr", svr.Addr))
-	http.ListenAndServe(svr.Addr, mux)
+	svr.Logger.Info("starting server", slog.Int("addr", svr.Port))
+	http.ListenAndServe(fmt.Sprintf(":%d", svr.Port), mux)
 }
 
 func RootHandler(w http.ResponseWriter, r *http.Request) {
