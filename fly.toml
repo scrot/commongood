@@ -12,6 +12,8 @@ primary_region = "ams"
 
 [env]
   PORT = "8080"
+  BP_GO_TARGETS = "./cmd/web/"
+
 
 [http_service]
   internal_port = 8080
