@@ -10,10 +10,11 @@ primary_region = "ams"
   builder = "paketobuildpacks/builder:base"
   buildpacks = ["gcr.io/paketo-buildpacks/go"]
 
-[env]
-  PORT = "8080"
+[build.args]
   BP_GO_TARGETS = "./cmd/web/"
 
+[env]
+  PORT = "8080"
 
 [http_service]
   internal_port = 8080
