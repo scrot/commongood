@@ -20,4 +20,13 @@
 
 # Go workspace file
 **/go.work
+
+# Build files
+Dockerfile
+Makefile
 fly.toml
+
+# Documentation
+README.md
+
+
